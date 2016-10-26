@@ -2,6 +2,8 @@
 
 import UIKit
 
+
+
 //CONSTANTS
 //=======================================
 //Constants should be used as much as possible to avoid unnecessary mutation (no mutation == safety)
@@ -9,17 +11,24 @@ import UIKit
 let prevYear: Int = 2015
 let year = 2015 //Can leave the type off because Swift can infer the input as Int
 let conference = "WWDC"
-print("Hello, \(conference)" + " \(year + 1)") //string interpolation
+print("Hello, \(conference) \(year + 1)") //string interpolation
+
+func confString() -> String{
+    return "WWDC"
+}
+print("Hello, \(confString()) \(year + 1)") //string interpolation
 
 //VARIABLES
 //=======================================
 var names: [String] = ["Abby","Bob"]
-var namesInferred = ["Abby","Bob"] //inferred as an array of string Int values
-print(names)
+var namesInferred = ["Abby",1] //inferred as an array of String values
 names.append("Cory")
 names[2] = "David"
 print(names)
 print(names[2])
+
+var i = namesInferred[1]
+print( "String(i.dynamicType) -> \(i.dynamicType)")
 
 //STRINGS
 //=======================================
@@ -28,7 +37,7 @@ print(stringA)
 stringA += "d"
 print(stringA)
 
-print("\(stringA.characters.count)")
+print(String(stringA.characters.count) + "hello")
 
 //LOOPS
 //=======================================
@@ -48,6 +57,11 @@ for(name,age) in ages{
     print("\(name) is \(age) years old")
 }
 
+//Not interested in the index, so don't save it to a variables
+for _ in 1...4 {
+    print("hello")
+}
+
 //Looping with filter and map
 //Filter takes a closure (similar to a block in objc) and runs the closure on every element in the collection.
 //Map also takes a closure
@@ -58,13 +72,21 @@ print(shortNames)
 
 //SWITCH STATEMENTS
 //=======================================
-let age = 10
+func myFunc()->Bool{
+    return true
+}
+let age = 20
 switch age {
 case 1:
     print("Happy first birthday")
-case 12...19:   //pattern matching over a range
+    //fallthrough
+case 12..<19:   //pattern matching over a range
     print("Happy birthday teenager")
-case let decade where age % 10 == 0: //pattern matching with a predicate
+case var decade where myFunc(): //pattern matching with a predicate
+
+    print("Happy significant \(decade)th birthday")
+case let decade where age % 3 == 0: //pattern matching with a predicate
+    //let decade = age where age % 10 == 0
     print("Happy significant \(decade)th birthday")
 default:
     print("default")
